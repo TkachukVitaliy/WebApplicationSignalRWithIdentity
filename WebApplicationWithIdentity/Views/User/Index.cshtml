@@ -1,0 +1,79 @@
+﻿@model WebApplicationWithIdentity.ViewModels.EditUserViewModel
+
+<head>
+    <link rel="stylesheet" href="~/css/user_css/userIndex.css" />
+</head>
+<body>
+    @if (TempData["Message"] != null)
+    {
+        <div class="alert alert-success">@TempData["Message"]</div>
+    }
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="alert alert-danger">
+            @Html.ValidationSummary()
+        </div>
+    }
+    <div class="container-menu">
+        <div class="main-box">
+            <h1>User Account:</h1>
+            <form asp-controller="User" asp-action="Index" method="post">
+                <label>Username:</label>
+                <input type="text" placeholder="username" asp-for="UserName" value="@Model.UserName">
+                <label>Email:</label>
+                <input type="text" placeholder="email" asp-for="Email" value="@Model.Email">
+                <input type="submit" name="Save">
+            </form>
+            <form asp-controller="User" asp-action="ChangePassword" method="get">
+                <button type="submit" class="btn-custom">Change Password</button>
+            </form>
+        </div>
+    </div>
+    @*<style>
+            .container-menu {
+                display: flex;
+                justify-content: unset;
+                align-items: center;
+            }
+
+            .main-box {
+                width: 350px;
+                background-color: #F3F3F4;
+                border-radius: 10px;
+                border: 1px solid #ADADAD;
+                padding: 20px;
+            }
+
+            .main-box {
+                margin: 40px 10px 10px 50px;
+            }
+
+            input {
+                display: block;
+                margin-bottom: 10px;
+                padding: 10px;
+                border-radius: 5px;
+                border: 1px solid #ccc;
+            }
+
+                input[type="text"], input[type="password"] {
+                    width: 90%;
+                }
+
+            button {
+                background-color: #007bff;
+                border: none;
+                color: #ffffff;
+                padding: 10px;
+                border-radius: 5px;
+                cursor: pointer;
+                width: 100%;
+            }
+
+            .btn-custom {
+                color: #fff;
+                background-color: #DDBDBB;
+                border-color: #DDBDBB;
+            }
+        </style>*@
+</body>

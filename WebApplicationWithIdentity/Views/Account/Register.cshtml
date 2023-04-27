@@ -1,0 +1,69 @@
+﻿@model WebApplicationWithIdentity.ViewModels.RegisterViewModel
+
+@{
+    Layout = "../Shared/_AuthLayout";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="~/css/authstyle.css">
+</head>
+<body>
+    <div class="sign-form-container">
+        <div class="background-image">
+            <div class="sign-form">
+                <div id="wrapper">
+                    <h1>Sign Up</h1>
+                    <form class="box" method="post" asp-controller="Account" asp-action="Register" autocomplete="off">
+                        <input type="text" asp-for="Email" id="email" placeholder="email" />
+                        <input type="text" asp-for="Name" id="name" placeholder="username" />
+                        <input type="password" asp-for="Password" id="pass" placeholder="password" />
+                        <input type="password" asp-for="PasswordConfirm" id="pass" placeholder="confirm password" />
+                        @if (!ViewData.ModelState.IsValid)
+                        {
+                            <div class="alert alert-danger text-white">
+                                @Html.ValidationSummary()
+                            </div>
+                        }
+                        <input type="submit" value="Register">
+                        <span class="link-btn"><a asp-controller="Account" asp-action="Login">Sign in now</a></span>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+@*<h2>Регистрация нового пользователя</h2>
+<form method="post" asp-controller="Account" asp-action="Register">
+    <div asp-validation-summary="ModelOnly"></div>
+    <div>
+        <label asp-for="Email"></label><br />
+        <input asp-for="Email" />
+        <span asp-validation-for="Email"></span>
+    </div>
+    <div>
+        <label asp-for="Name"></label><br />
+        <input asp-for="Name" />
+        <span asp-validation-for="Name"></span>
+    </div>
+    <div>
+        <label asp-for="Password"></label><br />
+        <input asp-for="Password" />
+        <span asp-validation-for="Password"></span>
+    </div>
+    <div>
+        <label asp-for="PasswordConfirm"></label><br />
+        <input asp-for="PasswordConfirm" />
+        <span asp-validation-for="PasswordConfirm"></span>
+    </div>
+    <div>
+        <input type="submit" value="Регистрация" />
+    </div>
+</form>*@

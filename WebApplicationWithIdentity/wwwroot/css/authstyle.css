@@ -1,0 +1,209 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,700);
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css');
+
+*{
+	font-family: 'Open Sans', 'sans-serif', 'FontAwesome';
+}
+html{
+	height: 100%;
+  	margin: 0;
+}
+body {
+	background: rgb(52, 56, 61);
+	margin: 0;
+	padding: 0;
+	font-family: sans-serif;
+	backround: #121420;
+	height: 100%;
+	margin: 0;
+}
+h1{
+	color: rgb(255, 255, 255);
+	margin: 20px auto 0;
+	width: 200px;
+	text-align: center;
+}
+
+.sign-form-container {
+	display: flex;
+	height: 100%; /* Встановлюємо висоту контейнера */
+	background-image: url('../images/F9.jpg');
+	background-size: contain;
+}
+
+.sign-form {
+	width: 500px;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #21313e;
+}
+
+.background-image {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex: 100%; /* Встановлюємо ширину правого елемента в 60% */
+	background-color: black;
+	background-color: rgba(0, 0, 0, 0.8); /* Задати прозорий фон */
+}
+
+#wrapper{
+	width: 320px;
+	text-align: center;
+}
+
+.box{
+  position: relative;
+  backround: #191919;
+  text-aligin: center;
+  }
+
+.box h1{
+    color: white;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+.box input[type = "text"], .box input[type = "password"]
+{
+  border:0;
+  background-color: #1B2432;
+  display: block;
+  margin: 20px auto;
+  text-aligin: center;
+  border: 2px solid #3498db;
+  padding: 14px 10px;
+  width: 200px;
+  outline: none;
+  color: white;
+  border-radius: 24px;
+  transition: width 0.3s ease-in-out;
+  
+}
+
+.box input[type = "text"]:focus,.box input[type = "password"]:focus
+{ 
+	
+	border-color: #2ecc71;
+	animation-name: grow;
+	animation-duration: 0.3s;
+	animation-fill-mode: forwards;
+}
+
+@keyframes grow{
+	0%{
+		border: 2px solid #3498db;
+		width: 200px;
+	}
+	50%{
+
+		width: 240px;
+	}
+	100%{
+		border-color: #2ecc71;
+		width: 280px; 
+	}
+}
+
+.box input[type = "text"]:not(:focus),.box input[type = "password"]:not(:focus)
+{ 
+	
+	border-color: #2ecc71;
+	animation-name: shrink;
+	animation-duration: 0.3s;
+	animation-fill-mode: forwards;
+}
+
+@keyframes shrink{
+	0%{
+		border-color: #2ecc71;
+		width: 280px;
+	}
+	50%{
+		width: 240px;
+	}
+	100%{
+		border: 2px solid #3498db;
+		width: 200px; 
+	}
+}
+
+.box input[type = "submit"]{
+	border:0;
+	background-color: #1B2432;
+	display: block;
+	margin: 20px auto;
+	text-aligin: center;
+	border: 2px solid #2ecc71;
+	padding: 14px 10px;
+	width: 150px;
+	outline: none;
+	color: white;
+	border-radius: 24px;
+	translation: 0.25s;
+	cursor: pointer;
+}
+
+.box input[type = "submit"]:hover{
+	background-color: #2ecc71;
+}
+
+.link-btn > a {
+	text-decoration: none;
+	position: relative;
+	text-decoration: none;
+}
+
+.link-btn > a:hover {
+	color: #ff0000;
+}
+
+.link-btn > a:visited {
+	color: white;
+}
+
+a::before {
+	content: '';
+	position: absolute;
+	width: 100%;
+	height: 2px;
+	bottom: 0;
+	left: 0;
+	background-color: green;
+	visibility: hidden;
+	transform: scaleX(0);
+	transition: all 0.3s ease-in-out 0s;
+}
+
+a:hover::before {
+	visibility: visible;
+	transform: scaleX(1);
+}
+
+a::after {
+	content: '';
+	position: absolute;
+	width: 14px;
+	height: 14px;
+	border-radius: 50%;
+	background-color: green;
+	transform: translate(-50%, -50%) scale(0);
+	transition: all 0.3s ease-in-out 0s;
+	opacity: 0.3;
+}
+
+a:active::after {
+	transform: translate(-50%, -50%) scale(10);
+	opacity: 0;
+	transition: all 0.3s ease-in-out 0s;
+}
+
+.check-label {
+	font-size: 0.8em;
+	color: #7f8084;
+	margin-top: 10px;
+	padding: 3px 0;
+	margin-left: 10px;
+}

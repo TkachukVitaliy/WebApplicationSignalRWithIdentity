@@ -1,0 +1,30 @@
+﻿@model List<ChatMessage>
+<head>
+    <link rel="stylesheet" href="~/css/home_css/homeChat.css" />
+</head>
+<body>
+    <div class="wrapper">
+        <div>
+            <ul id="messagesList">
+                @foreach (var message in Model)
+                {
+                    <div class="div-class">
+                        <span class="user-span">@message.Sender</span>
+                        <br />
+                        <span class="message-span">@message.Message</span>
+                        <br />
+                        <span class="time-span">@message.TimeStamp.ToString("HH:mm")</span>
+
+                    </div>
+                }
+            </ul>
+        </div>
+        <div class="message-container">
+            <div><input type="text" id="userInput" value="@User.Identity.Name" hidden /></div>
+            <input type="text" id="messageInput" class="input-text" placeholder="Введіть текст">
+            <input type="button" id="sendButton" class="send-btn" />
+        </div>
+    </div>
+    <script src="~/js/microsoft/signalr/dist/browser/signalr.js"></script>
+    <script src="~/js/chat.js"></script>
+</body>

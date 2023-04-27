@@ -1,0 +1,117 @@
+﻿@model WebApplicationWithIdentity.ViewModels.LoginViewModel
+
+@{ 
+    Layout = "../Shared/_AuthLayout";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="~/css/authstyle.css">
+</head>
+<body>
+    <div class="sign-form-container">
+        <div class="background-image">
+            <div class="sign-form">
+                <div id="wrapper">
+                    <h1>Sign In</h1>
+                    <form class="box" method="post" asp-controller="Account" asp-action="Login"
+                          asp-route-returnUrl="@Model.ReturnUrl" autocomplete="off">
+                        <input type="text" asp-for="Email" id="email" placeholder="email" />
+                        <input type="password" asp-for="Password" id="pass" placeholder="password" />
+                        <span class="check-label"><input asp-for="RememberMe" />Remember me</span>
+                        @if (!ViewData.ModelState.IsValid)
+                        {
+                            <div class="alert alert-danger text-white">
+                                @Html.ValidationSummary()
+                            </div>
+                        }
+                        <input type="submit" value="Login">
+                        <span class="link-btn"><a asp-controller="Account" asp-action="Register">Sign up now</a></span>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*<style>
+        /*.page-link > a {
+            text-decoration: none;
+            position: relative;
+            text-decoration: none;
+        }
+        .page-link > a:hover {
+            color: #ff0000;
+        }
+        .sing-up-link > a:visited {
+            color: white;
+        }
+        a::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: green;
+            visibility: hidden;
+            transform: scaleX(0);
+            transition: all 0.3s ease-in-out 0s;
+        }
+
+        a:hover::before {
+            visibility: visible;
+            transform: scaleX(1);
+        }
+
+        a::after {
+            content: '';
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background-color: green;
+            transform: translate(-50%, -50%) scale(0);
+            transition: all 0.3s ease-in-out 0s;
+            opacity: 0.3;
+        }
+
+        a:active::after {
+            transform: translate(-50%, -50%) scale(10);
+            opacity: 0;
+            transition: all 0.3s ease-in-out 0s;
+        }
+        .check-label {
+            font-size: 0.8em;
+            color: #7f8084;
+            margin-top: 10px;
+            padding: 3px 0;
+            margin-left: 10px;
+        }*/
+    </style>*@
+</body>
+</html>
+
+
+@*<h2>Вход в приложение</h2>
+<form method="post" asp-controller="Account" asp-action="Login"
+      asp-route-returnUrl="@Model.ReturnUrl">
+    <div asp-validation-summary="ModelOnly"></div>
+    <div>
+        <label asp-for="Email"></label><br />
+        <input asp-for="Email" />
+        <span asp-validation-for="Email"></span>
+    </div>
+    <div>
+        <label asp-for="Password"></label><br />
+        <input asp-for="Password" />
+        <span asp-validation-for="Password"></span>
+    </div>
+    <div>
+        <label asp-for="RememberMe"></label><br />
+        <input asp-for="RememberMe" />
+    </div>
+    <div>
+        <input type="submit" value="Войти" />
+    </div>
+</form>*@

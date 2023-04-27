@@ -1,0 +1,46 @@
+﻿.social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 20px;
+    width: 200px;
+    height: 70px;
+    border-radius: 10px;
+    transition: all 0.3s ease-in-out;
+}
+
+.social-link:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.social-link > img {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.github {
+    background-color: dimgrey;
+    color: black;
+}
+
+.linkedin {
+    background-color: ghostwhite;
+    color: #0C64C4;
+}
+
+.github:hover {
+    text-decoration: none;
+    color: black;
+    border: 2px solid ghostwhite;
+}
+
+.linkedin:hover {
+    text-decoration: none;
+    color: #0C64C4;
+    border: 2px solid #0C64C4;
+}

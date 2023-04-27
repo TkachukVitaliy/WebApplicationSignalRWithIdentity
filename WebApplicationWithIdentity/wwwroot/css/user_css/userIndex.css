@@ -1,0 +1,45 @@
+﻿.container-menu {
+    display: flex;
+    justify-content: unset;
+    align-items: center;
+}
+
+.main-box {
+    width: 350px;
+    background-color: #F3F3F4;
+    border-radius: 10px;
+    border: 1px solid #ADADAD;
+    padding: 20px;
+}
+
+.main-box {
+    margin: 40px 10px 10px 50px;
+}
+
+input {
+    display: block;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+input[type="text"], input[type="password"] {
+    width: 90%;
+}
+
+button {
+    background-color: #007bff;
+    border: none;
+    color: #ffffff;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.btn-custom {
+    color: #fff;
+    background-color: #DDBDBB;
+    border-color: #DDBDBB;
+}
