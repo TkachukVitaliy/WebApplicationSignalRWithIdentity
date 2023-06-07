@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -106,5 +109,26 @@ namespace WebApplicationWithIdentity.Controllers
             }
             return View(model);
         }
+
+        [HttpGet]
+        public async Task LoginGoogle()
+        {
+            await HttpContext.ChallengeAsync(GoogleDefaults.AuthenticationScheme, new AuthenticationProperties() { RedirectUri = Url.Action("LoginCallback") });
+        }
+
+        public async Task<IActionResult> LoginCallback()
+        {
+            var authenticateResult = await HttpContext.AuthenticateAsync(GoogleDefaults.AuthenticationScheme);
+
+            if (authenticateResult.Succeeded)
+            {
+                return RedirectToAction("Chat", "Home");
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+        }
+
     }
 }

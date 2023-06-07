@@ -29,6 +29,11 @@
                             </div>
                         }
                         <input type="submit" value="Register">
+                        <div class="or-container">
+                            <div class="line-separator"></div>
+                            <div class="or-label">or</div>
+                            <div class="line-separator"></div>
+                        </div>
                         <span class="link-btn"><a asp-controller="Account" asp-action="Login">Sign in now</a></span>
                     </form>
                 </div>
@@ -37,33 +42,3 @@
     </div>
 </body>
 </html>
-
-
-
-@*<h2>Регистрация нового пользователя</h2>
-<form method="post" asp-controller="Account" asp-action="Register">
-    <div asp-validation-summary="ModelOnly"></div>
-    <div>
-        <label asp-for="Email"></label><br />
-        <input asp-for="Email" />
-        <span asp-validation-for="Email"></span>
-    </div>
-    <div>
-        <label asp-for="Name"></label><br />
-        <input asp-for="Name" />
-        <span asp-validation-for="Name"></span>
-    </div>
-    <div>
-        <label asp-for="Password"></label><br />
-        <input asp-for="Password" />
-        <span asp-validation-for="Password"></span>
-    </div>
-    <div>
-        <label asp-for="PasswordConfirm"></label><br />
-        <input asp-for="PasswordConfirm" />
-        <span asp-validation-for="PasswordConfirm"></span>
-    </div>
-    <div>
-        <input type="submit" value="Регистрация" />
-    </div>
-</form>*@

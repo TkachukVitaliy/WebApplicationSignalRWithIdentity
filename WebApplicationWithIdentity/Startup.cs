@@ -1,3 +1,6 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -10,6 +13,7 @@ using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using WebApplicationWithIdentity.DAL;
 using WebApplicationWithIdentity.Models;
@@ -28,7 +32,12 @@ namespace WebApplicationWithIdentity
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.User.AllowedUserNameCharacters =
+                "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZàáâã´äåºæçè³¿éêëìíîïðñòóôõö÷øùüþÿÀÁÂÃ¥ÄÅªÆÇÈ²¯ÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÞß0123456789-._@+";
+            });
+            services.AddSession();
             services.AddDbContext<ApplicationContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("UserDbConnection")));
 
@@ -40,13 +49,63 @@ namespace WebApplicationWithIdentity
                 options.Password.RequireUppercase = false; // òðåáóþòñÿ ëè ñèìâîëû â âåðõíåì ðåãèñòðå
                 options.Password.RequireDigit = false; // òðåáóþòñÿ ëè öèôðû
             })
-                .AddEntityFrameworkStores<ApplicationContext>();
-            
+                .AddEntityFrameworkStores<ApplicationContext>()
+                .AddDefaultTokenProviders();
 
+            services.AddScoped<UserManager<User>>();
+            services.AddScoped<SignInManager<User>>();
             services.AddSingleton<IUserIdProvider, UserIdProvider>();
 
             services.AddDbContext<ChatContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("ChatDbConnection")));
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
+            })
+                .AddCookie()
+                    //options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");) 
+                .AddGoogle(options =>
+                {
+                    options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                    options.ClientId = Configuration.GetValue<string>("OpenIdConnect:ClientId");
+                    options.ClientSecret = Configuration.GetValue<string>("OpenIdConnect:ClientSecret");
+                    options.CallbackPath = "/signin-google";
+                    options.SaveTokens = true;
+
+                    options.Events = new OAuthEvents
+                    {
+                        OnCreatingTicket = (async context =>
+                        {
+                            var userManager = context.HttpContext.RequestServices.GetRequiredService<UserManager<User>>();
+                            var dbContext = context.HttpContext.RequestServices.GetRequiredService<ApplicationContext>();
+                            var signInManager = context.HttpContext.RequestServices.GetRequiredService<SignInManager<User>>();
+
+                            var email = context.Principal.FindFirstValue(ClaimTypes.Email);
+                            var name = context.Principal.FindFirstValue(ClaimTypes.Name);
+                            var userName = name.Replace(" ", "");
+
+                            var user = await userManager.FindByEmailAsync(email);
+                            if (user == null)
+                            {
+                                user = new User { Email = email, UserName = userName };
+                                await userManager.CreateAsync(user);
+                                await dbContext.SaveChangesAsync();
+                            }
+                            await signInManager.SignInAsync(user, false);
+                            await Task.CompletedTask;
+                        }),
+
+                        OnRemoteFailure = (context =>
+                        {
+                            //TODO: on auth failure code
+                            return Task.CompletedTask;
+                        }),
+                    };
+
+                });
+            services.AddAuthorization();
 
             services.AddSignalR(options =>
             {
@@ -74,7 +133,7 @@ namespace WebApplicationWithIdentity
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseSession();
             app.UseRouting();
 
             app.UseAuthentication();
@@ -84,9 +143,11 @@ namespace WebApplicationWithIdentity
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Chat}/{id?}");
+                    pattern: "{controller=Account}/{action=Login}/{id?}");
                 endpoints.MapHub<ChatHub>("/Chat");
             });
+
+            
         }
     }
 }
